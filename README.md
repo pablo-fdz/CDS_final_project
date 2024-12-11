@@ -1,13 +1,5 @@
 # CDS_final_project
 
-a. The pipeline should contain a preprocessing step with one or multiple preprocessors.
-b. The pipeline should contain a part to build some features to be used by the model. At least 5
-features (or feature sets) should be build independently.
-c. The pipeline should contain a step to split train/test or to do cross-validation.
-d. The pipeline should train the model and generate predictions.
-e. The pipeline should perform hyperparameter tuning and choose the best set of hyperparameters.
-f. The pipeline should contain a step that evaluates the model’s performance on a set of metrics.
-
 Library structure:
 1. *Data loading*: loading the data from multiple types of sources. For now, it could just load the data from a single type of source. Also, it could convert the data into a data frame.
 2. *EDA*: numerical and graphical exploratory data analysis. Organize folders by type of analysis (graphical/numerical), type of variables, etc. 
