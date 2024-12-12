@@ -25,7 +25,7 @@ X_test = test_data[['A', 'B']]
 # Create preprocessing pipeline
 nan_remover = ml.NanRemover()
 standardizer = ml.Standardizer()
-pipeline = ml.PreprocessingPipeline([nan_remover, standardizer])
+pipeline = ml.PreprocessingPipeline([nan_remover, integer_transformer, imputer, standardizer])
 
 # Create model
 logreg = LogisticRegression(max_iter = 200,

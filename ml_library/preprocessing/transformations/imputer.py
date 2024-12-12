@@ -1,23 +1,39 @@
 import pandas as pd
 from .transformation import Transformation
 
+import pandas as pd
+from .transformation import Transformation
+
 class Imputer(Transformation):
-    def __init__(self):
-        pass
+    def __init__(self, group_by_column: str = 'Album Name'):
+        """
+        Initializes the Imputer class.
+        To be applied after integer_transformer.
+
+        Arguments: Column to group by when calculating means - 'Album Name'
+        """
+        self.group_by_column = group_by_column
+        self.group_means = None
+
+    def fit(self, data: pd.DataFrame) -> None:
+        """
+        Calculates and stores the mean of numerical columns grouped by Album Name.
+        """
+        self.group_means = data.groupby(self.group_by_column).mean()
 
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
-<<<<<<< HEAD
-            '''
-            Fills the nan with the mean based on the Album Name. Has to be done before column_dropper.
-            '''
-            self.group_by_column = 'Album Name'
-            self.album_mean = self.df.groupby(self.group_by_column)[self.column_to_fill].mean()
-            
-            self.album_mean = self.album_mean.round(2)
-            transformed_data[mean_columns] = self.df[self.mean_columns].fillna(self.df[self.group_by_column].map(self.album_mean))
-            
-            return transformed_data        
-=======
-        print('Method not implemented yet.')
-        return data
->>>>>>> 585ca228e46bbf04c22a732039dc9b49caf9e343
+        """
+        Applies the stored means to fill NaN values in numerical columns.
+        It also drops the Album Name column.
+        """
+        if self.group_means is None:
+            raise RuntimeError("The `fit` method must be called before `transform`.")
+        
+        transformed_data = data.copy()
+        for column in self.group_means.columns:
+            if column in transformed_data.columns:
+                transformed_data[column] = transformed_data[column].fillna(
+                    transformed_data[self.group_by_column].map(self.group_means[column]))
+
+        transformed_data = transformed_data.drop(columns=[self.group_by_column])
+        return transformed_data
