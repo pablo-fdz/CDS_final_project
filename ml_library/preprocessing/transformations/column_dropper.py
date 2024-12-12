@@ -9,5 +9,5 @@ class Column_Dropper(Transformation):
                                 'Apple Music Playlist Count', 'Deezer Playlist Count',
                                 'Deezer Playlist Reach', 'Amazon Playlist Count', 'TIDAL Popularity'] 
 
-    def drop_columns(self, data):
+    def transform(self, data: pd.DataFrame) -> pd.DataFrame:
         data = data.drop(self.columns_to_drop, axis=1)
