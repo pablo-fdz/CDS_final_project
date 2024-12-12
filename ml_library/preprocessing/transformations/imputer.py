@@ -23,6 +23,6 @@ class Imputer(Transformation):
             self.album_mean = self.df.groupby(self.group_by_column)[self.column_to_fill].mean()
             
             self.album_mean = self.album_mean.round(2)
-            self.df[self.mean_columns] = self.df[self.mean_columns].fillna(self.df[self.group_by_column].map(self.album_mean))
+            transformed_data[mean_columns] = self.df[self.mean_columns].fillna(self.df[self.group_by_column].map(self.album_mean))
             
-            return data        
+            return transformed_data        
