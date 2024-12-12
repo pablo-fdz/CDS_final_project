@@ -7,24 +7,28 @@ class IntegerTransformer(Transformation):
 
     def fit(self, data: pd.DataFrame) -> None:
         """
-        Identifies columns that can be converted to integers without errors.
+        Identifies columns that contain numeric data, including those with commas, and marks them for transformation.
         """
         for column in data.columns:
             try:
-                data[column].astype(int)
+                # Attempt to replace commas and convert to numeric type
+                pd.to_numeric(data[column].replace({',': ''}, regex=True), errors='raise')
                 self.column_types[column] = 'int'
             except (ValueError, TypeError):
                 self.column_types[column] = 'drop'
+        print(self.column_types)
 
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
         """
-        Transforms columns into integer format and drops non-convertible columns.
+        Transforms numeric columns into integer format, handling commas, and drops non-convertible columns.
         Assumes `fit` has been called beforehand.
         """
         transformed_data = data.copy()
         for column, col_type in self.column_types.items():
             if col_type == 'int':
-                transformed_data[column] = transformed_data[column].astype(int)
+                transformed_data[column] = pd.to_numeric(
+                    transformed_data[column].replace({',': ''}, regex=True), errors='coerce'
+                ).fillna(0).astype(int)
             elif col_type == 'drop':
                 transformed_data.drop(columns=[column], inplace=True)
         return transformed_data
