@@ -9,7 +9,7 @@ class Numeric_Transformer_1(Transformation):
             "Pandora Track Stations", "Soundcloud Streams", "Shazam Counts"
         ]
     #numeric converter 
-    def convert_to_numeric(column):
+    def convert_to_numeric(column, data):
         return pd.to_numeric(data[column].str.replace(',', ''), errors='coerce') if column in data.columns else data[column]
 
     def fit(self, data: pd.DataFrame) -> pd.DataFrame:
@@ -21,7 +21,7 @@ class Numeric_Transformer_1(Transformation):
 
 
         for col in self.columns_to_convert:
-            df[col] = convert_to_numeric(col)
+            df[col] = self.convert_to_numeric(col,data)
 
         # Fill missing values with mean for numeric columns
         df.fillna(df.mean(numeric_only=True), inplace=True)
