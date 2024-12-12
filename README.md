@@ -5,17 +5,17 @@ It's the central part of the model. The class MyPipeline integrates the preproce
 
 How it works:
 
-    1. Initiatie the MyPipeline class - here you must include as parameters: 'model', 'preprocessing', and 'score_metric', respectively.
+1. Initiatie the MyPipeline class - here you must include as parameters: 'model', 'preprocessing', and 'score_metric', respectively.
 
-    2. Fit the pipeline to the train and test sets. - .fit()
+2. Fit the pipeline to the train and test sets. - .fit()
 
-    3. Obtain de predictions - .predict()
+3. Obtain de predictions - .predict()
 
-    4. Perform the search - .tune() - to specify: 'X', 'y', 'strategy' - it will take RandomSearchCV and GridSearchCV as search strategies. 
+4. Perform the search - .tune() - to specify: 'X', 'y', 'strategy' - it will take RandomSearchCV and GridSearchCV as search strategies. 
 
-    5. Obtain a list of the best parameters, according to the evaluation metric specified - get_params()
-    
-    6. Once the search is completed, the model is saved with the best-performing hyperparameters, for future fittings.
+5. Obtain a list of the best parameters, according to the evaluation metric specified - get_params()
+
+6. Once the search is completed, the model is saved with the best-performing hyperparameters, for future fittings.
 
 ## The Pre-Processing Pipeline
 It iterates through the specified transformations so they can be applied through one command. It takes a list of the transformations as an input. Here, is where the order of tranformations can be controlled. Specifications about order requirements are found within the transformation subclasses' header comments.
