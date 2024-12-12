@@ -1,6 +1,6 @@
 
-
 import pandas as pd
+import numpy as np
 from .transformation import Transformation
 
 class FeatureEngineering(Transformation):
