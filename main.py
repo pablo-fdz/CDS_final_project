@@ -1,20 +1,37 @@
 import ml_library as ml
 import pandas as pd
+from sklearn.linear_model import LogisticRegression
 
-data = pd.DataFrame(data = {
+# Data
+train_data = pd.DataFrame(data = {
     'A': [1, 5, 6, 8, 10],
-    'B': [0, 3, 50, 2000, 2]
+    'B': [0, 3, 50, 2000, 2],
+    'target': [1, 0, 0, 0 ,1]
 })
 
-# Create the desired transformations
-nan_remover = ml.NanRemover()
-standardizer = ml.Standardizer()
+X_train = train_data[['A', 'B']]
+y_train = train_data['target']
+
+test_data = pd.DataFrame(data = {
+    'A': [8, 6, 5, 3, 8],
+    'B': [8, 5, 59, 2333, 1]
+})
+
+X_test = test_data[['A', 'B']]
 
 # Create preprocessing pipeline
-preprocessing_pipeline = ml.PreprocessingPipeline([nan_remover, standardizer])
+nan_remover = ml.NanRemover()
+standardizer = ml.Standardizer()
+pipeline = ml.PreprocessingPipeline([nan_remover, standardizer])
 
-# Apply (fit and transform) transformations
-preprocessing_pipeline.fit(data)
-new_data = preprocessing_pipeline.transform(data)
+# Create model
+logreg = LogisticRegression(penalty = 'l2')
 
-print(new_data)
+# Create pipeline
+pipeline = ml.MyPipeline(model = logreg, preprocessing = pipeline)
+
+# Fit model
+pipeline.fit(X_train, y_train)
+prediction = pipeline.predict(X_test)
+
+print(prediction)
