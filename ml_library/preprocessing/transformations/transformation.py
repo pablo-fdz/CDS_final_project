@@ -4,7 +4,8 @@ import pandas as pd
 class Transformation(metaclass = ABCMeta):
     def fit(self, data: pd.DataFrame) -> None:
         """
-        Computes the transformation parameters appropriate for the data. 
+        Computes the transformation parameters appropriate for the data. By default,
+        it doesn't do anything unless the specific transformation sets a fit method.
 
         E.g., computes the mean and the standard deviation of the numerical variables
         of the data.
