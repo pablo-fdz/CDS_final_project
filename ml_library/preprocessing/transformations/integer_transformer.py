@@ -5,7 +5,7 @@ class IntegerTransformer(Transformation):
     def __init__(self):
         self.column_types = {}
 
-    def fit(self, data: pd.DataFrame) -> None:
+    def fit(self, data: pd.DataFrame, verbose = False) -> None:
         """
         Identifies columns that contain numeric data, including those with commas, and marks them for transformation.
         """
@@ -16,7 +16,8 @@ class IntegerTransformer(Transformation):
                 self.column_types[column] = 'int'
             except (ValueError, TypeError):
                 self.column_types[column] = 'drop'
-        print(self.column_types)
+        if verbose == True:
+            print(self.column_types)
 
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
         """
