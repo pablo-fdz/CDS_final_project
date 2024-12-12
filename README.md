@@ -1,10 +1,24 @@
-# CDS_final_project
 
-Library structure:
-1. *Data loading*: loading the data from multiple types of sources. For now, it could just load the data from a single type of source. Also, it could convert the data into a data frame.
-2. *EDA*: numerical and graphical exploratory data analysis. Organize folders by type of analysis (graphical/numerical), type of variables, etc. 
-3. *Preprocessing*: chonkiest module of the library. It should be composed of multiple types of preprocessors (including data cleaning, feature creation, encoding of categorical variables, etc.), where each class could be child classes of an abstract `Transformation` class, with the method .transform(data) which returns data. Each preprocessor should take, as input, some data, and return the transformed data. Also, it would be interesting to create a transformation pipeline that takes in (i.e., is a composition) of the `Transformation` class, and the initialization of which includes each of the preprocessing steps you want to include in the training/cross-validation. This should be compatible then with step 4, for hyperparameter-tuning + cross-validation.
-4. *Hyperparameter-tuning, cross-validation and model evaluation*. Perform grid search / randomized search or any other algorithm that searches for the best hyperparameters through cross validation. As input, it should receive the transformation pipeline from step 3, so that the transformation is applied separately (but in the same way) to training and validation. It should also consider for the possibility of evaluation with different models, and maybe return an object which contains the optimal hyperparameters found through cross-validation.
-5. *Prediction*: predicts new data with the optimal hyperparameters and the chosen model found in step 4. 
+The model is organized in three main parts: the Pipeline, the Pre-Processing Pipeline, and the Transformations.
 
-Dataset: https://www.kaggle.com/datasets/nelgiriyewithana/most-streamed-spotify-songs-2024/code
+# The Pipeline:
+It's the central part of the model. The class MyPipeline integrates the preprocessor, the model, the search strategy, and the evaluation metric. All these elements can be adjusted separately. 
+How it works:
+    1. Initiatie the MyPipeline class - here you must include as parameters: 'model', 'preprocessing', and 'score_metric', respectively.
+    2. Fit the pipeline to the train and test sets. - .fit()
+    3. Obtain de predictions - .predict()
+    4. Perform the search - .tune() - to specify: 'X', 'y', 'strategy' - it will take RandomSearchCV and GridSearchCV as search strategies. 
+    5. Obtain a list of the best parameters, according to the evaluation metric specified - get_params()
+    6. Once the search is completed, the model is saved with the best-performing hyperparameters, for future fittings.
+
+# The Pre-Processing Pipeline
+It iterates through the specified transformations so they can be applied through one command. It takes a list of the transformations as an input. Here, is where the order of tranformations can be controlled. Specifications about order requirements are found within the transformation subclasses' header comments.
+
+# The Transformation Class
+It is an abstract base class containing, as child classes, all the transformations to be applied. The base class specifies that all subclasses must contain a .transform() method and, optionally, a .fit() method.
+
+## SCALABILITY
+
+The pipeline can very easily be scaled. New transformations and feature engineering can be added to the pre-processing pipeline by adding new scripts into the folder. This ensures easy access to all the transformation features as well as limited interaction with the already existing features. Moreover, the Transformation class ensures that all features contained within it will be compatible with the model application end of the pipeline.
+
+The only potential conflict might arise from the order of application of certain transformations. In such cases, the potential requirements must be specified within the function declaration.
