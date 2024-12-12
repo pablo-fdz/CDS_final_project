@@ -6,5 +6,4 @@ class NanRemover(Transformation):
         pass
 
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
-        print('Method not implemented yet.')
-        return data
+        return data.dropna()

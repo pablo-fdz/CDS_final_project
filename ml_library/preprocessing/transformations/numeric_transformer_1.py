@@ -16,7 +16,7 @@ class Numeric_Transformer_1(Transformation):
         return data
 
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
-        # TODO: Ensure that fit has been called previousl
+        # TODO: Ensure that fit has been called previously
         df = data.copy()
 
 
