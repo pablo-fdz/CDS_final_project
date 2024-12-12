@@ -1,7 +1,7 @@
 import pandas as pd
 from .transformation import Transformation
 
-class Imputer(Transformation):
+class OHE(Transformation):
     def __init__(self):
         pass
 
