@@ -1,5 +1,7 @@
 import ml_library as ml
 import pandas as pd
+from typing import Callable
+from collections.abc import Callable
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_validate
 from scipy.stats import uniform
@@ -25,6 +27,8 @@ X_test = test_data[['A', 'B']]
 # Create preprocessing pipeline
 nan_remover = ml.NanRemover()
 standardizer = ml.Standardizer()
+integer_transformer = ml.IntegerTransformer()
+imputer = ml.Imputer()
 pipeline = ml.PreprocessingPipeline([nan_remover, integer_transformer, imputer, standardizer])
 
 # Create model
