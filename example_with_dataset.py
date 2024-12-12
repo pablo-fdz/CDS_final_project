@@ -48,7 +48,8 @@ print(X_train)
 # Create preprocessing pipeline
 nan_remover = ml.NanRemover()
 integer_transformer = ml.IntegerTransformer()
-pipeline = ml.PreprocessingPipeline([nan_remover, integer_transformer])
+standardizer = ml.Standardizer()
+pipeline = ml.PreprocessingPipeline([nan_remover, integer_transformer, standardizer])
 
 # Create model
 logreg = LogisticRegression(penalty = 'l2')
