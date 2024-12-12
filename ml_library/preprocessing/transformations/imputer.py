@@ -2,20 +2,11 @@ import pandas as pd
 from .transformation import Transformation
 
 class Imputer(Transformation):
-    def __init__(self, mean_column, data):
-            '''
-            Class that perform calculations and fillings based on the mean of a column.
-            
-            :param mean_column: Column name where you want to perform the operations.
-            :param df: Input Dataframe
-            
-            :return None: It directly modifies the df that you pass to the MeanOperations_ByColumn Object.
-            '''
-        
-            self.mean_columns = data.columns
-            self.data = data
+    def __init__(self):
+        pass
 
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
+<<<<<<< HEAD
             '''
             Fills the nan with the mean based on the Album Name. Has to be done before column_dropper.
             '''
@@ -26,3 +17,7 @@ class Imputer(Transformation):
             transformed_data[mean_columns] = self.df[self.mean_columns].fillna(self.df[self.group_by_column].map(self.album_mean))
             
             return transformed_data        
+=======
+        print('Method not implemented yet.')
+        return data
+>>>>>>> 585ca228e46bbf04c22a732039dc9b49caf9e343
