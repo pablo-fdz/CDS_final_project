@@ -23,9 +23,8 @@ test_data = pd.DataFrame(data = {
 X_test = test_data[['A', 'B']]
 
 # Create preprocessing pipeline
-nan_remover = ml.NanRemover()
 standardizer = ml.Standardizer()
-pipeline = ml.PreprocessingPipeline([nan_remover, standardizer])
+pipeline = ml.PreprocessingPipeline([standardizer])
 
 # Create model
 logreg = LogisticRegression(max_iter = 200,
@@ -35,12 +34,25 @@ logreg = LogisticRegression(max_iter = 200,
 # Create pipeline
 pipeline = ml.MyPipeline(model = logreg, preprocessing = pipeline, score_metric = accuracy_score)
 
-distributions = {
-            'model__C': uniform(loc=0.01, scale=10),
-            }
+# Prediction BEFORE tuning
+print('Prediction before hyperparameter tuning:')
+pipeline.fit(X_train, y_train)
+print(pipeline.predict(X_test))
+print(pipeline.model.get_params())
 
-clf = RandomizedSearchCV(pipeline, distributions, n_iter = 10, random_state=0)
+# Hyperparameter tuning
+search_strategy = RandomizedSearchCV(
+    pipeline,
+    param_distributions = {
+        'model__C': uniform(loc=0.01, scale=10),
+    },
+    n_iter = 10,
+    random_state=0
+)
+pipeline.tune(X = X_train, y = y_train, strategy = search_strategy)
 
-search = clf.fit(X_train, y_train)
-
-print(search.best_params_)
+# Prediction AFTER tuning
+print('Prediction after hyperparameter tuning:')
+pipeline.fit(X_train, y_train)
+print(pipeline.predict(X_test))
+print(pipeline.model.get_params())

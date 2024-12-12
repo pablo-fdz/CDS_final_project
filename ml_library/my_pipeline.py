@@ -3,8 +3,12 @@ import pandas as pd
 from sklearn.base import BaseEstimator
 from sklearn.metrics import accuracy_score
 from collections.abc import Callable
+from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
+from typing import Any
 
 type ScoreMetric = Callable[[pd.Series, pd.Series], float]
+type SearchStrategy = RandomizedSearchCV | GridSearchCV
+
 
 class MyPipeline(BaseEstimator):
     """
@@ -104,4 +108,26 @@ class MyPipeline(BaseEstimator):
             float: The score (e.g., accuracy, F1-score) of the model on the given test data.
         """
         y_pred = self.predict(X)
-        return self.score_metric(y, y_pred) 
+        return self.score_metric(y, y_pred)
+    
+    def tune(self, X: pd.DataFrame, y: pd.Series, strategy: SearchStrategy, verbose = True) -> dict[str, Any]:
+        """
+        Searches for the optimal hyperparameters of the pipeline's model. Updates
+        the model to use the new hyperparameters.
+
+        Args:
+            X (pd.DataFrame): Training features.
+            y (pd.Series): Training labels.
+            strategy (SearchStrategy): Hyperparameter optimization strategy. 
+
+        Returns:
+            dict[str, Any]: Dictionary of the optimized hyperparameters.
+        """
+        if strategy.estimator != self:
+            raise ValueError("The search strategy must use the same pipeline as the estimator.")
+        search = strategy.fit(X, y)
+        best_params = {k.split('model__', 1)[1]: v for k, v in search.best_params_.items()}
+        self.model.set_params(**best_params)
+        if verbose:
+            print("The model has been tuned with the optimal hyperparameters.")
+        return best_params
