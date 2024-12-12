@@ -1,13 +1,20 @@
 The model is organized in three main parts: the Pipeline, the Pre-Processing Pipeline, and the Transformations.
 
 ## The Pipeline:
-It's the central part of the model. The class MyPipeline integrates the preprocessor, the model, the search strategy, and the evaluation metric. All these elements can be adjusted separately. 
+It's the central part of the model. The class MyPipeline integrates the preprocessor, the model, the search strategy, and the evaluation metric. All these elements can be adjusted separately.
+
 How it works:
+
     1. Initiatie the MyPipeline class - here you must include as parameters: 'model', 'preprocessing', and 'score_metric', respectively.
+
     2. Fit the pipeline to the train and test sets. - .fit()
+
     3. Obtain de predictions - .predict()
+
     4. Perform the search - .tune() - to specify: 'X', 'y', 'strategy' - it will take RandomSearchCV and GridSearchCV as search strategies. 
+
     5. Obtain a list of the best parameters, according to the evaluation metric specified - get_params()
+    
     6. Once the search is completed, the model is saved with the best-performing hyperparameters, for future fittings.
 
 ## The Pre-Processing Pipeline
