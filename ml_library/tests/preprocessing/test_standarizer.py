@@ -1,7 +1,7 @@
 import pandas as pd
 import unittest
 import datetime
-from preprocessing import Standarizer
+from preprocessing.transformations.standardizer import Standardizer
 import pytest
 
 class TestStandardizer(unittest.TestCase):

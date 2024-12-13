@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from your_module.imputer import Imputer
+from preprocessing.transformations.imputer import Imputer
 
 class TestImputer(unittest.TestCase):
     def setUp(self):

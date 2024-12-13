@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from your_module.transformations.integer_transformer import IntegerTransformer
+from preprocessing.transformations.integer_transformer import IntegerTransformer
 
 class TestIntegerTransformer(unittest.TestCase):
 
