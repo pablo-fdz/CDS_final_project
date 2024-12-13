@@ -28,3 +28,7 @@ It is an abstract base class containing, as child classes, all the transformatio
 The pipeline can very easily be scaled. New transformations and feature engineering can be added to the pre-processing pipeline by adding new scripts into the folder. This ensures easy access to all the transformation features as well as limited interaction with the already existing features. Moreover, the Transformation class ensures that all features contained within it will be compatible with the model application end of the pipeline.
 
 The only potential conflict might arise from the order of application of certain transformations. In such cases, the potential requirements must be specified within the function declaration.
+
+---
+
+[Christmas gift](https://www.youtube.com/watch?v=yvtAzP3dHzk)! Happy holidays :)
