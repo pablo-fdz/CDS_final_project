@@ -1,7 +1,7 @@
 import pandas as pd
 from .transformation import Transformation
 
-class OHE(Transformation):
+class OneHotEncoder(Transformation):
     def __init__(self):
         pass
 
