@@ -53,6 +53,9 @@ class MyPipeline(BaseEstimator):
             model (BaseEstimator): The scikit-learn model for training and prediction.
             preprocessing (PreprocessingPipeline): A preprocessing pipeline to apply to the data.
                 Defaults to an empty pipeline.
+            score_metric (ScoreMetric): Scikit-learn function that returns a certain score metric.
+                Used in the .score method, it allows cross-validation and search strategies through
+                scikit-learn.
         """
         self.model = model
         self.preprocessing = preprocessing

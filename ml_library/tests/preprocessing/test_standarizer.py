@@ -17,7 +17,7 @@ class TestStandardizer(unittest.TestCase):
         self.expected_standardized = pd.DataFrame({
             'A': [-1.224744871391589, 0.0, 1.224744871391589],
             'B': [-1.224744871391589, 0.0, 1.224744871391589],
-            'C': ['x', 'y', 'z']  
+            'C': ['x', 'y', 'z']   
         })
 
     def test_standardizer_fit_transform(self):
