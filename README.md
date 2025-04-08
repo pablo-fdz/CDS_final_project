@@ -38,3 +38,8 @@ The only potential conflict might arise from the order of application of certain
 # 5. Sample implementation
 
 To see an example of the implementation of the library, check out the Jupyter Notebook `pipeline_notebook.ipynb`.
+
+# 6. Other characteristics of the library
+
+The library also includes the creation of an API to train the model and unit tests for some preprocessing classes, which can be extended to more classes for convenience.
+
