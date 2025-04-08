@@ -8,7 +8,7 @@ This repository contains the foundations for a scalable machine learning library
 
 The library is organized in three main parts: the (main) Pipeline class (`my_pipeline`), the Pre-Processing Pipeline (`preprocessing_pipeline`), and the Transformations.
 
-# 1. The Pipeline:
+# 1. The Pipeline
 It's the central part of the model. The class `MyPipeline` integrates the preprocessor class, the model, hyperparameter tuning, the search strategy, and the evaluation metric. All of these elements can be adjusted separately through different methods.
 
 How it works:
@@ -26,7 +26,7 @@ How it works:
 # 2. The Pre-Processing Pipeline
 It iterates through the specified transformations so they can be applied through one command. It takes a list of the transformations as an input. Here, is where the order of tranformations can be controlled. Specifications about order requirements are found within the transformation subclasses' header comments.
 
-# 3. The Transformation Class
+# 3. The `Transformation` Class
 It is an abstract base class containing, as child classes, all the transformations to be applied. The base class specifies that all subclasses must contain a `.transform()`  method and, optionally, a `.fit()`  method (which ensures compatibility with `scikit-learn`'s hyperparameter search strategies).
 
 # 4. Scalability
